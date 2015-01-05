@@ -568,8 +568,8 @@ EXPORT void flam3_mutate(flam3_genome *cp, int mutate_mode, int *ivars, int ivar
 EXPORT void flam3_cross(flam3_genome *cp0, flam3_genome *cp1, flam3_genome *out, int cross_mode, randctx *rc, char *action);
 
 /* return NULL in case of error */
-EXPORT flam3_genome *flam3_parse_xml2(char *s, char *fn, int default_flag, int *ncps);
-flam3_genome *flam3_parse_from_file(FILE *f, char *fn, int default_flag, int *ncps);
+EXPORT flam3_genome *flam3_parse_xml2(char *s, const char *fn, int default_flag, int *ncps);
+flam3_genome *flam3_parse_from_file(FILE *f, const char *fn, int default_flag, int *ncps);
 
 void flam3_add_symmetry(flam3_genome *g, int sym);
 

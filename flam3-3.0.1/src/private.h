@@ -34,7 +34,6 @@
 #define _USE_MATH_DEFINES
 #else
 #include <unistd.h>
-#include <libgen.h>
 #endif
 
 #include <math.h>

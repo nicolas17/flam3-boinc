@@ -1393,7 +1393,7 @@ def:
    return (nthreads);
 }
 
-flam3_genome *flam3_parse_xml2(char *xmldata, char *xmlfilename, int default_flag, int *ncps) {
+flam3_genome *flam3_parse_xml2(char *xmldata, const char *xmlfilename, int default_flag, int *ncps) {
 
    xmlDocPtr doc; /* Parsed XML document tree */
    xmlNode *rootnode;
@@ -1494,7 +1494,7 @@ flam3_genome *flam3_parse_xml2(char *xmldata, char *xmlfilename, int default_fla
    return loc_all_cp;
 }
 
-flam3_genome * flam3_parse_from_file(FILE *f, char *fname, int default_flag, int *ncps) {
+flam3_genome * flam3_parse_from_file(FILE *f, const char *fname, int default_flag, int *ncps) {
    int i, c, slen = 5000;
    char *s, *snew;
    flam3_genome *ret;
