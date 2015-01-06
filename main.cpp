@@ -26,6 +26,9 @@ extern "C" {
 #include "img.h"
 }
 
+#include <boinc_api.h>
+#include <filesys.h>
+
 int myprogress(void* param, double percent, int unknown, double eta) {
     //printf();
     return 0;
@@ -33,27 +36,30 @@ int myprogress(void* param, double percent, int unknown, double eta) {
 
 int main()
 {
+    boinc_init();
+
     flam3_frame f;
 
     memset(&f, 0, sizeof(f));
     flam3_init_frame(&f);
     flam3_srandom();
 
-    const char* filename = "in.flam3";
-    FILE* fp = fopen(filename, "rb");
+    char real_in_fn[512];
+    boinc_resolve_filename("in.flam3", real_in_fn, sizeof(real_in_fn));
+    FILE* fp = boinc_fopen(real_in_fn, "rb");
 
     flam3_genome* cps;
     int ncps;
-    cps = flam3_parse_from_file(fp, filename, flam3_defaults_on, &ncps);
+    cps = flam3_parse_from_file(fp, real_in_fn, flam3_defaults_on, &ncps);
     if (!cps) {
         fprintf(stderr, "Can't parse file\n");
-        exit(1);
+        boinc_finish(1);
     }
     fclose(fp);
 
     if (ncps > 1) {
         fprintf(stderr, "This program only supports a single flame per input file\n");
-        exit(1);
+        boinc_finish(1);
     }
 
     cps[0].ntemporal_samples = 1;
@@ -82,9 +88,13 @@ int main()
     }
 
     putenv("enable_png_comments=0");
-    FILE* outfp = fopen("out.png", "wb");
+    char real_out_fn[512];
+    boinc_resolve_filename("out.png", real_out_fn, sizeof(real_out_fn));
+    FILE* outfp = boinc_fopen(real_out_fn, "wb");
     write_png(outfp, image_data.get(), cps[0].width, cps[0].height, nullptr, 1);
     fclose(outfp);
 
     free(cps);
+
+    boinc_finish(0);
 }
