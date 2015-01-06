@@ -46,37 +46,39 @@ void write_png(FILE *file, void *image, int width, int height, flam3_img_comment
   char *ai; /* For argi */
   int pngcom_enable = argi("enable_png_comments", 1);
 
-  text[0].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[0].key = "flam3_version";
-  text[0].text = flam3_version();
+  if (pngcom_enable) {
+    text[0].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[0].key = "flam3_version";
+    text[0].text = flam3_version();
 
-  text[1].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[1].key = "flam3_nickname";
-  text[1].text = nick;
+    text[1].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[1].key = "flam3_nickname";
+    text[1].text = nick;
 
-  text[2].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[2].key = "flam3_url";
-  text[2].text = url;
-  
-  text[3].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[3].key = "flam3_id";
-  text[3].text = id;
+    text[2].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[2].key = "flam3_url";
+    text[2].text = url;
 
-  text[4].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[4].key = "flam3_error_rate";
-  text[4].text = fpc->badvals;
+    text[3].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[3].key = "flam3_id";
+    text[3].text = id;
 
-  text[5].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[5].key = "flam3_samples";
-  text[5].text = fpc->numiters;
+    text[4].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[4].key = "flam3_error_rate";
+    text[4].text = fpc->badvals;
 
-  text[6].compression = PNG_TEXT_COMPRESSION_NONE;
-  text[6].key = "flam3_time";
-  text[6].text = fpc->rtime;
+    text[5].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[5].key = "flam3_samples";
+    text[5].text = fpc->numiters;
 
-  text[7].compression = PNG_TEXT_COMPRESSION_zTXt;
-  text[7].key = "flam3_genome";
-  text[7].text = fpc->genome;
+    text[6].compression = PNG_TEXT_COMPRESSION_NONE;
+    text[6].key = "flam3_time";
+    text[6].text = fpc->rtime;
+
+    text[7].compression = PNG_TEXT_COMPRESSION_zTXt;
+    text[7].key = "flam3_genome";
+    text[7].text = fpc->genome;
+  }
 
   for (i = 0; i < height; i++)
     rows[i] = (unsigned char *)image + i * width * 4 * bpc;
