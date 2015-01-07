@@ -21,14 +21,12 @@ target_include_directories(flam3 PUBLIC flam3-3.0.1/src ${LIBXML2_INCLUDE_DIR} $
 target_link_libraries(flam3 PUBLIC ${CMAKE_THREAD_LIBS_INIT} ${LIBXML2_LIBRARIES} ${PNG_LIBRARIES})
 
 
-find_path(BOINCAPI_INCLUDE_DIR boinc_api.h PATH_SUFFIXES api)
-find_path(BOINCLIB_INCLUDE_DIR filesys.h   PATH_SUFFIXES lib)
+find_path(BOINC_INCLUDE_DIR boinc_api.h PATH_SUFFIXES boinc)
 
 find_library(BOINCAPI_LIBRARY  boinc_api   PATH_SUFFIXES api)
 find_library(BOINCLIB_LIBRARY  boinc       PATH_SUFFIXES lib)
 
 add_executable(flam3boinc main.cpp)
-target_include_directories(flam3boinc PUBLIC ${BOINCAPI_INCLUDE_DIR})
-target_include_directories(flam3boinc PUBLIC ${BOINCLIB_INCLUDE_DIR})
+target_include_directories(flam3boinc PUBLIC ${BOINC_INCLUDE_DIR})
 target_link_libraries(flam3boinc flam3 ${BOINCAPI_LIBRARY} ${BOINCLIB_LIBRARY})
 target_compile_options(flam3boinc PUBLIC -std=c++11)
