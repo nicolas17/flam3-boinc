@@ -29,8 +29,12 @@ extern "C" {
 #include <boinc_api.h>
 #include <filesys.h>
 
-int myprogress(void* param, double percent, int unknown, double eta) {
-    //printf();
+// stage is 0 during chaos, 1 during density estimation.
+// percent restarts during each stage.
+int myprogress(void* param, double percent, int stage, double eta) {
+    if (stage == 0) {
+        boinc_fraction_done(percent/100.0);
+    }
     return 0;
 }
 
@@ -66,12 +70,12 @@ int main()
 
     f.genomes = cps;
     f.ngenomes = 1;
-    f.verbose=1;
+    f.verbose = 0;
     f.nthreads = 1;
     f.bytes_per_channel = 1;
     f.bits = 33; // 33 is double-precision floating point
     f.pixel_aspect_ratio = 1.0;
-    //f.progress = myprogress;
+    f.progress = myprogress;
     f.sub_batch_size = 10000;
 
     const int channels = 4;
