@@ -80,10 +80,10 @@ int main()
 
     const int channels = 4;
 
-    size_t needed_memory = cps[0].width * cps[0].height * channels /* * bytes_per_channel */;
+    size_t image_size = cps[0].width * cps[0].height * channels /* * bytes_per_channel */;
 
-    std::unique_ptr<char[]> image_data(new char[needed_memory]);
-    std::fill(image_data.get(), image_data.get()+needed_memory, 0);
+    std::unique_ptr<char[]> image_data(new char[image_size]);
+    std::fill(&image_data[0], &image_data[image_size], 0);
 
     stat_struct stats;
     if (flam3_render(&f, image_data.get(), flam3_field_both, channels, 0, &stats) != 0) {
