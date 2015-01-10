@@ -31,6 +31,12 @@ add_executable(flam3boinc main.cpp)
 target_include_directories(flam3boinc PUBLIC ${BOINC_INCLUDE_DIR})
 target_link_libraries(flam3boinc flam3 ${BOINCAPI_LIBRARY} ${BOINCLIB_LIBRARY})
 
+if(WIN32)
+    # winsock needed by libxml2. Ideally this should come from
+    # libxml2's cmake files...
+    target_link_libraries(flam3boinc ws2_32)
+endif()
+
 if(NOT MSVC)
     target_compile_options(flam3boinc PUBLIC -std=c++11)
 endif()
