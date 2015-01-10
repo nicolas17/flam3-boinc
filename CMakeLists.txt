@@ -30,4 +30,7 @@ find_library(BOINCLIB_LIBRARY  boinc       PATH_SUFFIXES lib)
 add_executable(flam3boinc main.cpp)
 target_include_directories(flam3boinc PUBLIC ${BOINC_INCLUDE_DIR})
 target_link_libraries(flam3boinc flam3 ${BOINCAPI_LIBRARY} ${BOINCLIB_LIBRARY})
-target_compile_options(flam3boinc PUBLIC -std=c++11)
+
+if(NOT MSVC)
+    target_compile_options(flam3boinc PUBLIC -std=c++11)
+endif()
