@@ -49,3 +49,7 @@ endif()
 if(NOT MSVC)
     target_compile_options(flam3boinc PUBLIC -std=c++11)
 endif()
+
+if(STATIC_BUILD AND NOT MSVC)
+    set_target_properties(flam3boinc PROPERTIES LINK_FLAGS "-static-libstdc++")
+endif()
