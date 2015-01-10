@@ -12,7 +12,7 @@ add_library(flam3 STATIC
     flam3-3.0.1/src/variations.c
     flam3-3.0.1/src/interpolation.c
     flam3-3.0.1/src/palettes.c
-    flam3-3.0.1/src/jpeg.c
+    #flam3-3.0.1/src/jpeg.c
     flam3-3.0.1/src/png.c
     flam3-3.0.1/src/isaac.c
 )
