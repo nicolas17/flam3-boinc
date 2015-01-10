@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 project(flam3boinc)
 
 find_package(LibXml2 REQUIRED)
+set(PNG_NAMES libpng12_static)
 find_package(PNG REQUIRED)
 find_package(Threads REQUIRED)
 
