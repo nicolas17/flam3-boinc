@@ -68,12 +68,16 @@ static void de_thread(void *dth) {
    int enr = (oversample-1)+dthp->end_row;
    int i,j;
    time_t progress_timer=0;
+#ifndef _WIN32
    struct timespec pauset;
+#endif
    int progress_count = 0;
    int pixel_num;
    
+#ifndef _WIN32
    pauset.tv_sec = 0;
    pauset.tv_nsec = 100000000;
+#endif
          
    /* Density estimation code */         
    for (j = str; j < enr; j++) {
@@ -255,7 +259,9 @@ static void iter_thread(void *fth) {
    int j;
    flam3_thread_helper *fthp = (flam3_thread_helper *)fth;
    flam3_iter_constants *ficp = fthp->fic;
+#ifndef _WIN32
    struct timespec pauset;
+#endif
    int SBS = ficp->spec->sub_batch_size;
    int fuse;
 
@@ -263,8 +269,10 @@ static void iter_thread(void *fth) {
    
    fuse = (ficp->spec->earlyclip) ? FUSE_28 : FUSE_27;
 
+#ifndef _WIN32
    pauset.tv_sec = 0;
    pauset.tv_nsec = 100000000;
+#endif
 
 
    if (fthp->timer_initialize) {
