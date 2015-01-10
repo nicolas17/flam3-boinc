@@ -1,12 +1,17 @@
 cmake_minimum_required(VERSION 2.8)
 project(flam3boinc)
 
-find_package(LibXml2 REQUIRED)
-if(WIN32)
-    set(PNG_NAMES libpng12_static)
-else()
-    set(PNG_NAMES png12)
+option(STATIC_BUILD "Do a static build suitable for a BOINC project. Requires static dependency libraries." OFF)
+
+if(STATIC_BUILD)
+    if(WIN32)
+        set(PNG_NAMES libpng12_static)
+    else()
+        set(PNG_NAMES png12)
+    endif()
 endif()
+
+find_package(LibXml2 REQUIRED)
 find_package(PNG REQUIRED)
 find_package(Threads REQUIRED)
 
